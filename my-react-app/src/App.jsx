@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-router-dom";
 import LoginPage from "./LoginPage";
+import SignUpPage from "./SignUpPage";
 import Dashboard from "./Dashboard";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Restore login from localStorage
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) setIsLoggedIn(true);
@@ -24,7 +24,25 @@ function App() {
           {isLoggedIn ? (
             <Redirect to="/dashboard" />
           ) : (
-            <LoginPage onLogin={() => setIsLoggedIn(true)} />
+            <>
+              <LoginPage onLogin={() => setIsLoggedIn(true)} />
+              <div className="text-center mt-3">
+                <Link to="/signup">Don’t have an account? Sign Up</Link>
+              </div>
+            </>
+          )}
+        </Route>
+
+        <Route path="/signup">
+          {isLoggedIn ? (
+            <Redirect to="/dashboard" />
+          ) : (
+            <>
+              <SignUpPage onSignUp={() => (window.location.href = "/")} />
+              <div className="text-center mt-3">
+                <Link to="/">Already have an account? Login</Link>
+              </div>
+            </>
           )}
         </Route>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "./App.css";  // import custom CSS
+import { login } from "./auth"; 
+import "./App.css";
 
 function LoginPage({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -9,16 +9,20 @@ function LoginPage({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) return alert("Please enter email and password");
+
+    if (!email || !password) {
+      return alert("Please enter email and password");
+    }
+
     try {
       setBusy(true);
-      const res = await axios.post("http://localhost:5000/login", { email, password });
-      if (res.data.success) {
-        localStorage.setItem("token", res.data.token);
+      const result = login(email, password); // ✅ no axios call, just local auth
+
+      if (result.success) {
         onLogin();
+      } else {
+        alert(result.message);
       }
-    } catch {
-      alert("Login failed");
     } finally {
       setBusy(false);
     }
@@ -26,7 +30,7 @@ function LoginPage({ onLogin }) {
 
   return (
     <div className="login-bg">
-      <div className="login-card">
+      <div className="auth-card">
         <h3 className="text-center">Login</h3>
         <form onSubmit={handleSubmit}>
           <input
@@ -45,7 +49,11 @@ function LoginPage({ onLogin }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="btn btn-primary w-100" disabled={busy}>
+          <button
+            type="submit"
+            className="btn btn-primary w-100"
+            disabled={busy}
+          >
             {busy ? "Logging in..." : "Login"}
           </button>
         </form>

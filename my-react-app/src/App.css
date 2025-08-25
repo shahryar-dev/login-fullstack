@@ -1,0 +1,74 @@
+/* Background gradient for login/signup */
+.login-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  padding: 20px;
+}
+
+/* Card container */
+.login-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Inputs */
+.form-input {
+  display: block;
+  width: 80%;          /* responsive width */
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  transition: border 0.3s;
+}
+
+.form-input:focus {
+  border-color: #4e54c8;
+  outline: none;
+  box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
+}
+
+/* Button */
+.btn-primary-sm {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 10px;
+  font-weight: bold;
+  background: #4e54c8;
+  color: white;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-primary-sm:hover {
+  background: #3b40a0;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .login-card {
+    padding: 20px;
+  }
+  .form-input {
+    width: 100%;
+  }
+  .btn-primary-sm {
+    width: 100%;
+  }
+}
